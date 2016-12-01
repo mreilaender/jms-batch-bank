@@ -14,4 +14,8 @@ public class Number {
     public void setNumber(int number) {
         this.number = number;
     }
+
+    public void add(Number number) {
+        this.number += number.getNumber();
+    }
 }
