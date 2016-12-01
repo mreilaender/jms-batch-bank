@@ -1,4 +1,4 @@
-package com.accenture.reikratei;
+package com.reikratei.jms;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
