@@ -1,4 +1,4 @@
-package com.reikratei.springbatch;
+package com.reikratei.jms;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
