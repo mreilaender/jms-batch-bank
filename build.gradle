@@ -2,6 +2,8 @@ group 'jms-multi-bank'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
 
 sourceCompatibility = 1.5
 
