@@ -1,4 +1,4 @@
-package com.accenture.reikratei;
+package com.reikratei.springbatch;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
