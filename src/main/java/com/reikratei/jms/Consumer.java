@@ -9,7 +9,7 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-public class HelloWorldConsumer {
+public class Consumer {
 	
 	public void run() {
 	try {
@@ -51,7 +51,7 @@ public class HelloWorldConsumer {
 }
 
 	public static void main(String[] args) {
-		HelloWorldConsumer consumer = new HelloWorldConsumer();
+		Consumer consumer = new Consumer();
 		consumer.run();
 	}
 }
