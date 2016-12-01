@@ -30,8 +30,9 @@
 		</property>
 	</bean>
 	
-	<bean id="xmlItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-<!-- 	<pro -->
+	
+	<bean id="xmlItemWriter" class="com.reikratei.springbatch.JsonFlatFileWriter">
+		<property name="resource" value="" />
 	</bean>
 
 </beans>
