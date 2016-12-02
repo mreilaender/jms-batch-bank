@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
 
-	<batch:job id="helloWorldJob">
-		<batch:step id="step1">
+	<batch:job id="numberChangeJob">
+		<batch:step id="readChangeNumbersWrite">
 			<batch:tasklet>
 				<batch:chunk reader="inputNumberReader" writer="csvItemWriter"
 					processor="itemProcessor" commit-interval="10">
@@ -13,34 +13,58 @@
 			</batch:tasklet>
 		</batch:step>
 	</batch:job>
-	
-	
 
+
+	<bean id="itemProcessor" class="com.reikratei.spring.batch.processors.NumberProcessor" />
 
 	<bean id="inputNumberReader" class="org.springframework.batch.item.file.FlatFileItemReader">
 		<property name="resource" value="classpath:input/input.csv" />
+		<property name="lineMapper" ref="lineMapper" />
+	</bean>
 
-		<property name="lineMapper">
-			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-				<property name="lineTokenizer">
-					<bean
-						class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-						<property name="names" value="number" />
-					</bean>
-				</property>
+	<bean id="lineMapper"
+		class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+		<property name="lineTokenizer">
+			<bean
+				class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+				<property name="names" value="number" />
 			</bean>
 		</property>
+
+		<property name="fieldSetMapper" ref="fieldSetMapper" />
 	</bean>
-	
-	
+
+	<bean id="number" class="com.reikratei.spring.batch.entities.Number" scope="prototype" />
+
+	<bean id="fieldSetMapper"
+		class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+		<property name="prototypeBeanName" value="number"></property>
+	</bean>
+
 	<bean id="csvItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
-		<property name="resource" value="classpath:output/output.csv" />
+		<property name="resource" value="file:target/output/output.csv" />
+		<property name="lineAggregator">
+		<bean class="com.reikratei.spring.batch.io.PassThroughLineAggregator"></bean>
+		</property>
 	</bean>
-	
-	
+
+
 	<bean id="jsonItemWriter" class="com.reikratei.spring.batch.io.JsonFlatFileWriter">
 		<property name="resource" value="classpath:output/output.json" />
-		
 	</bean>
+
+	<bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+
+	<bean id="jobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>
+
 
 </beans>
