@@ -1,4 +1,4 @@
-package com.reikratei.springbatch;
+package com.reikratei.spring.batch.io;
 
 import java.io.IOException;
 import java.io.Writer;

@@ -1,4 +1,4 @@
-package com.reikratei.springbatch;
+package com.reikratei.spring.batch.io;
 
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;

@@ -38,7 +38,7 @@
 	</bean>
 	
 	
-	<bean id="jsonItemWriter" class="com.reikratei.springbatch.JsonFlatFileWriter">
+	<bean id="jsonItemWriter" class="com.reikratei.spring.batch.io.JsonFlatFileWriter">
 		<property name="resource" value="classpath:output/output.json" />
 		
 	</bean>
